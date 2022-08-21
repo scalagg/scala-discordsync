@@ -1,6 +1,5 @@
 package gg.minequest.sync.profile
 
-import gg.scala.common.Savable
 import gg.scala.store.controller.DataStoreObjectControllerCache
 import gg.scala.store.storage.storable.IDataStoreObject
 import gg.scala.store.storage.type.DataStoreStorageType
@@ -16,10 +15,9 @@ data class DiscordProfile(
     var lastCachedDiscordUsername: String? = null,
     var notifiedOfSuccessfulLink: Boolean = false,
     var claimedInitialLinkAward: Boolean = false
-) : IDataStoreObject, Savable
+) : IDataStoreObject
 {
-    override fun save() =
-        DataStoreObjectControllerCache
-            .findNotNull<DiscordProfile>()
-            .save(this, DataStoreStorageType.MONGO)
+    fun save() = DataStoreObjectControllerCache
+        .findNotNull<DiscordProfile>()
+        .save(this, DataStoreStorageType.MONGO)
 }
