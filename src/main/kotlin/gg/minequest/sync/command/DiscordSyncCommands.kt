@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture
  * @since 8/21/2022
  */
 @AutoRegister
-object SyncCommand : ScalaCommand()
+object DiscordSyncCommands : ScalaCommand()
 {
     @CommandAlias("unlink|unlink-discord-account")
     fun onUnLink(player: Player): CompletableFuture<Void>
