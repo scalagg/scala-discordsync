@@ -1,7 +1,6 @@
 package gg.minequest.sync
 
 import gg.scala.commons.ExtendedScalaPlugin
-import gg.scala.commons.annotations.container.ContainerEnable
 import me.lucko.helper.plugin.ap.Plugin
 import me.lucko.helper.plugin.ap.PluginDependency
 
@@ -13,7 +12,8 @@ import me.lucko.helper.plugin.ap.PluginDependency
     name = "QuestDiscordSync",
     depends = [
         PluginDependency("scala-commons"),
-        PluginDependency("store-spigot")
+        PluginDependency("store-spigot"),
+        PluginDependency("cloudsync", soft = true)
     ]
 )
 class MinequestDiscordSync : ExtendedScalaPlugin()
