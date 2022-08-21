@@ -33,7 +33,7 @@ object DiscordProfileOrchestrator : ProfileOrchestrator<DiscordProfile>()
     fun configure()
     {
         val aware = AwareBuilder
-            .of<AwareMessage>("discord:sync-feed")
+            .of<AwareMessage>("discord")
             .codec(AwareMessageCodec)
             .logger(this.plugin.logger)
             .build()
