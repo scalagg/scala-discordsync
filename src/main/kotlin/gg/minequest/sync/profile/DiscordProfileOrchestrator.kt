@@ -9,6 +9,7 @@ import gg.scala.commons.persist.ProfileOrchestrator
 import gg.scala.flavor.inject.Inject
 import gg.scala.flavor.service.Configure
 import gg.scala.flavor.service.Service
+import gg.scala.store.controller.DataStoreObjectControllerCache
 import io.lettuce.core.api.StatefulRedisConnection
 import me.lucko.helper.Events
 import net.evilblock.cubed.util.CC
@@ -47,7 +48,14 @@ object DiscordProfileOrchestrator : ProfileOrchestrator<DiscordProfile>()
             val player = Bukkit.getPlayer(playerUniqueId)
                 ?: return@listen
 
-            notifyOfDiscordSync(player)
+            DataStoreObjectControllerCache
+                .findNotNull<DiscordProfile>()
+                .loadOptimalCopy(playerUniqueId) {
+                    DiscordProfile(playerUniqueId)
+                }
+                .thenRun {
+                    notifyOfDiscordSync(player)
+                }
         }
 
         Events.subscribe(PlayerJoinEvent::class.java)
