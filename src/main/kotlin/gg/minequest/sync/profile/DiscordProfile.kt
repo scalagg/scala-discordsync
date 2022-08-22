@@ -17,6 +17,8 @@ data class DiscordProfile(
     var claimedInitialLinkAward: Boolean = false
 ) : IDataStoreObject
 {
+    var completedInitialSave: Boolean? = null
+
     fun save() = DataStoreObjectControllerCache
         .findNotNull<DiscordProfile>()
         .save(this, DataStoreStorageType.MONGO)

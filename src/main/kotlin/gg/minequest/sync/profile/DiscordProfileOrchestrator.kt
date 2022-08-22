@@ -90,6 +90,20 @@ object DiscordProfileOrchestrator : ProfileOrchestrator<DiscordProfile>()
         }
     }
 
+    override fun postLoad(uniqueId: UUID)
+    {
+        val profile = this.find(uniqueId)
+            ?: return
+
+        if (
+            profile.completedInitialSave == null ||
+            !profile.completedInitialSave!!
+        )
+        {
+            profile.save()
+        }
+    }
+
     override fun new(uniqueId: UUID) = DiscordProfile(uniqueId)
     override fun type() = DiscordProfile::class
 }

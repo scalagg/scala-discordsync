@@ -5,9 +5,12 @@ import gg.scala.commons.acf.ConditionFailedException
 import gg.scala.commons.acf.annotation.CommandAlias
 import gg.scala.commons.annotations.commands.AutoRegister
 import gg.scala.commons.command.ScalaCommand
+import me.lucko.helper.Events
 import net.evilblock.cubed.util.CC
 import org.apache.commons.lang3.RandomStringUtils
 import org.bukkit.entity.Player
+import org.bukkit.event.EventPriority
+import org.bukkit.event.player.PlayerInteractEvent
 import java.time.Duration
 import java.util.concurrent.CompletableFuture
 
@@ -67,7 +70,6 @@ object DiscordSyncCommands : ScalaCommand()
 
                 val alphanumeric = RandomStringUtils
                     .randomAlphanumeric(7)
-
 
                 DiscordProfileOrchestrator.connection.sync()
                     .set(key, alphanumeric)
