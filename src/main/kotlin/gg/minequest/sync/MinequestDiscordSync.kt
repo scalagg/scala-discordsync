@@ -9,7 +9,7 @@ import me.lucko.helper.plugin.ap.PluginDependency
  * @since 8/21/2022
  */
 @Plugin(
-    name = "QuestDiscordSync",
+    name = "MinequestSync",
     depends = [
         PluginDependency("scala-commons"),
         PluginDependency("store-spigot"),
