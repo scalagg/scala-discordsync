@@ -23,6 +23,6 @@ object LinkedAnnouncementCondition : AnnouncementDisplayCondition
         val profile = DiscordProfileOrchestrator.find(player)
             ?: return true
 
-        return profile.discordId != null
+        return profile.discordId == null
     }
 }
