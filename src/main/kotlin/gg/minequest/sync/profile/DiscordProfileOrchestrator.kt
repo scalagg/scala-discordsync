@@ -39,8 +39,6 @@ object DiscordProfileOrchestrator : ProfileOrchestrator<DiscordProfile>()
             .logger(this.plugin.logger)
             .build()
 
-        this.subscribe()
-
         aware.listen("linked") {
             val playerUniqueId =
                 retrieve<UUID>("player-uuid")
@@ -64,9 +62,10 @@ object DiscordProfileOrchestrator : ProfileOrchestrator<DiscordProfile>()
             }
             .bindWith(plugin)
 
-        aware.connect()
-
-        this.connection = aware.internal().connect()
+        aware.connect().toCompletableFuture()
+            .thenRun {
+                this.connection = aware.internal().connect()
+            }
     }
 
     private fun notifyOfDiscordSync(player: Player)
