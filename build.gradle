@@ -22,11 +22,11 @@ repositories {
 
     maven {
         name "Scala"
-        url "${property("artifactory_contextUrl")}/gradle-release"
+        url "${property("minequest_artifactory_contextUrl")}/gradle-release"
 
         credentials {
-            username property("artifactory_user")
-            password property("artifactory_password")
+            username property("minequest_artifactory_user")
+            password property("minequest_artifactory_password")
         }
     }
 }
@@ -70,24 +70,24 @@ publishing {
     repositories {
         maven {
             name "scala"
-            url "${property("artifactory_contextUrl")}/gradle-release"
+            url "${property("minequest_artifactory_contextUrl")}/gradle-release"
 
             credentials {
-                username property("artifactory_user")
-                password property("artifactory_password")
+                username property("minequest_artifactory_user")
+                password property("minequest_artifactory_password")
             }
         }
     }
 }
 
 artifactory {
-    this.contextUrl = property("artifactory_contextUrl")
+    this.contextUrl = property("minequest_artifactory_contextUrl")
 
     publish {
         repository {
-            repoKey = property("artifactory_release_local")
-            username = property("artifactory_user")
-            password = property("artifactory_password")
+            repoKey = property("minequest_artifactory_release_local")
+            username = property("minequest_artifactory_user")
+            password = property("minequest_artifactory_password")
             maven = true
         }
     }
