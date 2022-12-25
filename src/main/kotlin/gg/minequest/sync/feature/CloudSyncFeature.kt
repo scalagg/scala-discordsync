@@ -1,6 +1,7 @@
 package gg.minequest.sync.feature
 
 import gg.scala.cloudsync.shared.discovery.CloudSyncDiscoveryService
+import gg.scala.commons.agnostic.sync.ServerSync
 import gg.scala.commons.annotations.plugin.SoftDependency
 import gg.scala.flavor.service.Configure
 import gg.scala.flavor.service.Service
@@ -21,7 +22,9 @@ object CloudSyncFeature
         CloudSyncDiscoveryService
             .discoverable.assets
             .add(
-                "gg.minequest.sync:minequest-discord-sync:quest-discord-sync"
+                "gg.minequest.sync:minequest-discord-sync:quest-discord-sync${
+                    if ("dev" in ServerSync.getLocalGameServer().groups) ":gradle-dev" else ""
+                }"
             )
     }
 }
