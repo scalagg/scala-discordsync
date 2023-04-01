@@ -6,6 +6,8 @@ import gg.scala.commons.acf.annotation.CommandAlias
 import gg.scala.commons.annotations.commands.AutoRegister
 import gg.scala.commons.command.ScalaCommand
 import net.evilblock.cubed.util.CC
+import net.evilblock.cubed.util.bukkit.FancyMessage
+import net.md_5.bungee.api.chat.ClickEvent
 import org.apache.commons.lang3.RandomStringUtils
 import org.bukkit.entity.Player
 import java.time.Duration
@@ -76,7 +78,17 @@ object DiscordSyncCommands : ScalaCommand()
                         key, Duration.ofMinutes(10L)
                     )
 
-                player.sendMessage("${CC.GREEN}Your discord sync code is ${CC.B_AQUA}$alphanumeric${CC.GREEN}. This code will expire in 10 minutes!")
+                FancyMessage()
+                    .withMessage(
+                        "${CC.GREEN}Your discord sync code is ${CC.B_AQUA}$alphanumeric${CC.GREEN}. This code will expire in 10 minutes! "
+                    )
+                    .withMessage("${CC.GRAY}(click to copy)")
+                    .andHoverOf("${CC.AQUA}Copy your code!")
+                    .andCommandOf(
+                        ClickEvent.Action.SUGGEST_COMMAND,
+                        alphanumeric
+                    )
+                    .sendToPlayer(player)
             }
     }
 }
