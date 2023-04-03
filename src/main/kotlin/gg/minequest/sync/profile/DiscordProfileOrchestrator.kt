@@ -12,6 +12,7 @@ import gg.scala.flavor.service.Service
 import gg.scala.store.controller.DataStoreObjectControllerCache
 import io.lettuce.core.api.StatefulRedisConnection
 import me.lucko.helper.Events
+import net.evilblock.cubed.ScalaCommonsSpigot
 import net.evilblock.cubed.util.CC
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -63,9 +64,8 @@ object DiscordProfileOrchestrator : ProfileOrchestrator<DiscordProfile>()
             .bindWith(plugin)
 
         aware.connect().toCompletableFuture()
-            .thenRun {
-                this.connection = aware.internal().connect()
-            }
+
+        this.connection = ScalaCommonsSpigot.instance.kvConnection
     }
 
     private fun notifyOfDiscordSync(player: Player)
