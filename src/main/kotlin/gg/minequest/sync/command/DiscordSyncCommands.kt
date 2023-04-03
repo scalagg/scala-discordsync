@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture
 @AutoRegister
 object DiscordSyncCommands : ScalaCommand()
 {
-    @CommandAlias("unlink|unlink-discord-account")
+    @CommandAlias("unlink|unsync|unlink-discord-account")
     fun onUnLink(player: Player): CompletableFuture<Void>
     {
         val profile = DiscordProfileOrchestrator.find(player)
