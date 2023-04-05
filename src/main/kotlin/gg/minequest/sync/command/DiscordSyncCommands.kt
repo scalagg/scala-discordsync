@@ -12,6 +12,7 @@ import org.apache.commons.lang3.RandomStringUtils
 import org.bukkit.entity.Player
 import java.time.Duration
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.TimeUnit
 
 /**
  * @author GrowlyX
@@ -57,25 +58,33 @@ object DiscordSyncCommands : ScalaCommand()
                     throw ConditionFailedException("You're already synced to the discord account ${CC.B_RED}${profile.lastCachedDiscordUsername}${CC.RED}!")
                 }
 
-                val key = "discord-sync-codes:${profile.identifier}"
+                val alphanumeric = RandomStringUtils
+                    .randomAlphanumeric(7)
+
+                val idToCodeMapping = "discord-sync-codes:accounts:${profile.identifier}"
 
                 val existing =  DiscordProfileOrchestrator
-                    .connection.sync().get(key)
+                    .connection.sync().get(idToCodeMapping)
 
                 if (existing != null)
                 {
                     throw ConditionFailedException("You have already generated a code! You may reset this code in 10 minutes. Your code is: ${CC.B_RED}$existing")
                 }
 
-                val alphanumeric = RandomStringUtils
-                    .randomAlphanumeric(7)
+                val key = "discord-sync-codes:codes:$alphanumeric"
 
                 DiscordProfileOrchestrator.connection.sync()
-                    .set(key, alphanumeric)
+                    .setex(
+                        key,
+                        TimeUnit.MINUTES.toSeconds(10L),
+                        profile.identifier.toString()
+                    )
 
                 DiscordProfileOrchestrator.connection.sync()
-                    .expire(
-                        key, Duration.ofMinutes(10L)
+                    .setex(
+                        idToCodeMapping,
+                        TimeUnit.MINUTES.toSeconds(10L),
+                        alphanumeric
                     )
 
                 FancyMessage()
