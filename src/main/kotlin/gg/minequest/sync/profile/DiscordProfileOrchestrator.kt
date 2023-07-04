@@ -1,7 +1,7 @@
 package gg.minequest.sync.profile
 
 import gg.minequest.sync.MinequestDiscordSync
-import gg.minequest.sync.event.ProfileLinkEvent
+import gg.minequest.sync.event.InitialProfileLinkEvent
 import gg.scala.aware.AwareBuilder
 import gg.scala.aware.codec.codecs.interpretation.AwareMessageCodec
 import gg.scala.aware.message.AwareMessage
@@ -89,7 +89,7 @@ object DiscordProfileOrchestrator : ProfileOrchestrator<DiscordProfile>()
             if (!profile.claimedInitialLinkAward)
             {
                 profile.claimedInitialLinkAward = true
-                ProfileLinkEvent(player).flow().subscribe()
+                InitialProfileLinkEvent(player).flow().subscribe()
             }
 
             profile.notifiedOfSuccessfulLink = true
